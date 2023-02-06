@@ -11,6 +11,8 @@ Tested on Android 8: Environment.getExternalStorageDirectory() is working, an im
 Tested on Android 13: Environment.getExternalStorageDirectory() is NOT working (permiision issue ?), 
 usage of getFilesDir() (internal storage is working as a simple workaround)
 
+Append: use of a FLASH (ON, OFF, AUTO modes available)
+
 AndroidManifest:
 ```plaintext
     <uses-permission android:name="android.permission.CAMERA" />

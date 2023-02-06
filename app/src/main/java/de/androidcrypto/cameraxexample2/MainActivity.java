@@ -1,10 +1,13 @@
 package de.androidcrypto.cameraxexample2;
 
 import android.content.pm.PackageManager;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Size;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -79,6 +82,13 @@ public class MainActivity extends AppCompatActivity {
 
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
 
+        /* working ?
+        //Size size = new Size(int width, int height)
+        Size size = new Size(400, 200);
+        Preview preview = new Preview.Builder()
+                .setMaxResolution(size)
+                .build();
+        */
         Preview preview = new Preview.Builder()
                 .build();
 
@@ -90,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         ImageCapture.Builder builder = new ImageCapture.Builder();
+        builder.setFlashMode(ImageCapture.FLASH_MODE_ON); // or _OFF, _ON, _AUTO
 
         /*
         //Vendor-Extensions (The CameraX extensions dependency in build.gradle)
@@ -109,7 +120,16 @@ public class MainActivity extends AppCompatActivity {
         // deprecated preview.setSurfaceProvider(mPreviewView.createSurfaceProvider());
         preview.setSurfaceProvider(mPreviewView.getSurfaceProvider());
 
+
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview, imageAnalysis, imageCapture);
+
+
+        // put the light on
+        /*
+        if ( camera.getCameraInfo().hasFlashUnit() ) {
+            camera.getCameraControl().enableTorch(true); // or false
+        }
+         */
 
         captureImage.setOnClickListener(v -> {
 
